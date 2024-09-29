@@ -1,0 +1,29 @@
+{
+  "name": "molysia",
+  "type": "module",
+  "version": "1.0.50",
+  "module": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate",
+    "db:pull": "drizzle-kit introspect",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "elysia": "latest"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.6.2",
+    "@elysiajs/swagger": "^1.1.1",
+    "bun-types": "latest",
+    "drizzle-kit": "^0.24.2",
+    "drizzle-orm": "^0.33.0",
+    "drizzle-typebox": "^0.1.1",
+    "eslint": "^9.10.0"
+  }
+}
