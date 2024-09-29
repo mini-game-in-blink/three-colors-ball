@@ -15,6 +15,8 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@elysiajs/cors": "^1.1.1",
+    "@solana/actions": "^1.6.4",
     "elysia": "latest"
   },
   "devDependencies": {

@@ -1,33 +1,38 @@
-import type { Static } from 'elysia'
-import { Elysia, t } from 'elysia'
+import type {
+  ActionGetResponse,
+} from '@solana/actions'
+
+import { cors } from '@elysiajs/cors'
+
 import swagger from '@elysiajs/swagger'
+import {
+  ActionPostRequest,
+  ActionPostResponse,
+  createActionHeaders,
+  createPostResponse,
+} from '@solana/actions'
+import { Elysia, t } from 'elysia'
 
-import { createSelectSchema } from 'drizzle-typebox'
-import { drizzle } from 'drizzle-orm/bun-sqlite'
-import { Database } from 'bun:sqlite'
-import { users } from './schema'
+const headers = createActionHeaders({
+  chainId: 'devnet', // or chainId: "devnet"
+})
 
-const sqlite = new Database('sqlite.db')
-const db = drizzle(sqlite)
-
-const userSchema = createSelectSchema(users)
-const insertUserSchema = t.Omit(userSchema, ['id'])
-type InsertUserType = Static<typeof insertUserSchema>
-
-function createUser(body: InsertUserType) {
-  const newUser = db.insert(users).values(body as any).returning()
-  return newUser
-}
-
-const app = new Elysia({ prefix: '/auth' })
+const app = new Elysia()
   .use(swagger())
-  .put(
-    '/sign-up',
-    ({ body }: { body: InsertUserType }) => createUser(body),
-    {
-      body: insertUserSchema,
-    },
-  ).listen(3210)
+  .use(cors())
+  .get('/blink', () => {
+    const payload: ActionGetResponse = {
+      title: 'Actions Example - Simple On-chain Memo',
+      icon: 'https://ucarecdn.com/7aa46c85-08a4-4bc7-9376-88ec48bb1f43/-/preview/880x864/-/quality/smart/-/format/auto/',
+      description: 'Send a message on-chain using a Memo',
+      label: 'Send Memo',
+    }
+
+    return Response.json(payload, {
+      headers,
+    })
+  })
+  .listen(3210)
 
 // eslint-disable-next-line no-console
 console.log(
