@@ -26,6 +26,28 @@ const app = new Elysia()
       icon: 'https://ucarecdn.com/7aa46c85-08a4-4bc7-9376-88ec48bb1f43/-/preview/880x864/-/quality/smart/-/format/auto/',
       description: 'Send a message on-chain using a Memo',
       label: 'Send Memo',
+      links: {
+        actions: [
+          {
+            label: '1 SOL', // button text
+            href: '/api/donate?amount=10',
+            type: 'post',
+            // no `parameters` therefore not a text input field
+          },
+          {
+            label: '5 SOL', // button text
+            href: '/api/donate?amount=100',
+            type: 'post',
+            // no `parameters` therefore not a text input field
+          },
+          {
+            label: '10 SOL', // button text
+            href: '/api/donate?amount=1000',
+            type: 'post',
+            // no `parameters` therefore not a text input field
+          },
+        ],
+      },
     }
 
     return Response.json(payload, {
